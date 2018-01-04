@@ -1,8 +1,10 @@
 import ssl
+import sys
 
-server = input("Which server should I grab a cert from? ")
-port = input("How about a port? ")
-print()
+server = sys.argv[1]
+port = sys.argv[2]
 
+#print(server)
+#print (port)
 print(ssl.get_server_certificate((server, port)))
 print()
