@@ -5,6 +5,7 @@ import hashlib
 import re
 import OpenSSL
 import datetime
+import check-tls-certs
 
 flag1=0
 flag2=0
@@ -105,11 +106,12 @@ except Exception as f:
     #print("Exception %s" % (g))
 
 #this section started trying to determine ssl versions server accepts
-#try:
+try:
+    ssl.wrap_socket((s, ssl_version=PROTOCOL_SSLv23, do_handshake_on_connect=True, ciphers=None))
     #ssl.get_server_certificate((server, port, ssl_version=ssl.PROTOCOL_TLSv1))
     #SSLSocket.cipher(server, port)
-#except Exception as ssl1:
-    #print("Exception: %s" % (ssl1))
+except Exception as ssl1:
+    print("Exception: %s" % (ssl1))
 
 if flag1 or flag2 == "--cert":
     print("Certificate:")
