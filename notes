@@ -1,1 +1,11 @@
+USEFUL SITES:
 https://wiki.python.org/moin/SSL
+
+REQs (what do I want this to do?):
+Test ports for ssl listeners; print if ssl or not
+if not listening, print "no listener"
+if not ssl, print "not ssl listener"
+if ssl:
+    print "ssl listener"
+    print certificate info
+    print certificate 
