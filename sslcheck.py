@@ -4,13 +4,18 @@ import socket
 import re
 import OpenSSL
 
+
+if (len(sys.argv)) < 3:
+    print("Too few args!")
+    print("Usage: sslcheck.py hostname/IP port")
+    quit()
+
 server = sys.argv[1]
 port = int(sys.argv[2])
 #fprint = sys.argv[3]
 s = socket.socket()
 #cert = ssl.get_server_certificate((server, port))
 #x509 = OpenSSL.crypto.load_certificate(OpenSSL.crypto.FILETYPE_PEM, cert)
-
 
 print()
 print("Testing port...")
@@ -40,6 +45,9 @@ try:
     x509 = OpenSSL.crypto.load_certificate(OpenSSL.crypto.FILETYPE_PEM, cert)
     certls = str(x509.get_subject().get_components())
 
+    print("x509 Cert Details:")
+    print("----------------------")
+
     #this part of the code manipulates the return of x509.get_subject()
     cc = certls.split(')', 1)[0].rstrip()
     ccc = cc.split('b', 2)[2]
@@ -68,7 +76,11 @@ try:
     print()
 
 except Exception as f:
-    print("Couldn't get OpenSSL cert details")
+    print()
+    print("Failed getting x509 cert details!")
+    print("Here's what I got:")
+    print(certls)
+    print()
     print("Exception: %s" % (f))
     print()
 
