@@ -1,21 +1,23 @@
 import ssl
 import sys
 import socket
+import hashlib
 import re
 import OpenSSL
 
+flag=0
 
 if (len(sys.argv)) < 3:
     print("Too few args!")
     print("Usage: sslcheck.py hostname/IP port")
     quit()
 
+if len(sys.argv) == 4:
+    flag=sys.argv[3]
+
 server = sys.argv[1]
 port = int(sys.argv[2])
-#fprint = sys.argv[3]
 s = socket.socket()
-#cert = ssl.get_server_certificate((server, port))
-#x509 = OpenSSL.crypto.load_certificate(OpenSSL.crypto.FILETYPE_PEM, cert)
 
 print()
 print("Testing port...")
@@ -28,6 +30,7 @@ try:
 except:
     print("Connection failed!")
     print()
+    quit()
 finally:
     s.close
 
@@ -40,6 +43,7 @@ except Exception as e:
     print("OpenSSL connection failed!")
     print("Exception: %s" % (e))
     print()
+    quit()
 
 try:
     x509 = OpenSSL.crypto.load_certificate(OpenSSL.crypto.FILETYPE_PEM, cert)
@@ -58,7 +62,7 @@ try:
     sss = ss.split('b', 2)[2]
     print("State: %s" % (sss))
 
-    #this part for L?
+    #this part for Location!
     ll = certls.split(')', 3)[2].rstrip()
     lll = ll.split('b', 2)[2]
     print("Location: %s" % (lll))
@@ -84,6 +88,9 @@ except Exception as f:
     print("Exception: %s" % (f))
     print()
 
-#print(cert)
-#    print(cert)
+if flag == "--cert":
+    print(cert)
+
+#if flag == "--fingerprint":
+#    print(hashlib.sha1(cert).hexdigest())
 
