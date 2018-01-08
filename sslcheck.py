@@ -5,14 +5,14 @@ import socket
 #import re
 import OpenSSL
 import datetime
-import check-tls-certs
+import check_tls_certs
 
 flag1=0
 flag2=0
 
 if (len(sys.argv)) < 3 or (len(sys.argv)) >= 5 :
     print("Incorrect usage!")
-    print("Usage: sslcheck.py hostname/IP port [--cert]")
+    print("Usage: sslcheck.py hostname/IP port [--cert] [--fingerprint]")
     quit()
 
 if len(sys.argv) == 4:
@@ -98,19 +98,19 @@ except Exception as f:
 #try:
     #dcert = OpenSSL.crypto.load_certificate(OpenSSL.crypto.FILETYPE_PEM,  cert)
     #datetime.datetime.strptime(dcert.get_notAfter(), "%Y%m%d%H%M%SZ")
-    #exp_date = datetime.datetime.strptime(getpeercert.get_notAfter(), "%Y%m%d%H%M%SZ")
-    #print(exp_date)
+    #exp_date = datetime.datetime.strptime(get_peer_cert.get_notAfter(), "%Y%m%d%H%M%SZ")
+    print(exp_date)
 #except Exception as g:
     #print()
     #print("Exception %s" % (g))
 
 #this section started trying to determine ssl versions server accepts
-try:
-    ssl.wrap_socket((s, ssl_version=PROTOCOL_SSLv23, do_handshake_on_connect=True, ciphers=None))
+#try:
+    #ssl.wrap_socket((s, ssl_version=PROTOCOL_SSLv23, do_handshake_on_connect=True, ciphers=None))
     #ssl.get_server_certificate((server, port, ssl_version=ssl.PROTOCOL_TLSv1))
     #SSLSocket.cipher(server, port)
-except Exception as ssl1:
-    print("Exception: %s" % (ssl1))
+#except Exception as ssl1:
+    #print("Exception: %s" % (ssl1))
 
 if flag1 or flag2 == "--cert":
     print("Certificate:")
