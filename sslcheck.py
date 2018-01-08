@@ -4,8 +4,11 @@ import socket
 #import hashlib
 #import re
 import OpenSSL
+import datetime
+import check-tls-certs
 
-flag=0
+flag1=0
+flag2=0
 
 if (len(sys.argv)) < 3 or (len(sys.argv)) >= 5 :
     print("Incorrect usage!")
@@ -13,7 +16,11 @@ if (len(sys.argv)) < 3 or (len(sys.argv)) >= 5 :
     quit()
 
 if len(sys.argv) == 4:
-    flag=sys.argv[3]
+    flag1=sys.argv[3]
+
+if len(sys.argv) == 5:
+    flag1=sys.argv[3]
+    flag2=sys.argv[4]
 
 server = sys.argv[1]
 port = int(sys.argv[2])
@@ -87,9 +94,33 @@ except Exception as f:
     print("Exception: %s" % (f))
     print()
 
-if flag == "--cert":
+#this section started trying to determine date of expiration for ssl certs
+#try:
+    #dcert = OpenSSL.crypto.load_certificate(OpenSSL.crypto.FILETYPE_PEM,  cert)
+    #datetime.datetime.strptime(dcert.get_notAfter(), "%Y%m%d%H%M%SZ")
+    #exp_date = datetime.datetime.strptime(getpeercert.get_notAfter(), "%Y%m%d%H%M%SZ")
+    #print(exp_date)
+#except Exception as g:
+    #print()
+    #print("Exception %s" % (g))
+
+#this section started trying to determine ssl versions server accepts
+try:
+    ssl.wrap_socket((s, ssl_version=PROTOCOL_SSLv23, do_handshake_on_connect=True, ciphers=None))
+    #ssl.get_server_certificate((server, port, ssl_version=ssl.PROTOCOL_TLSv1))
+    #SSLSocket.cipher(server, port)
+except Exception as ssl1:
+    print("Exception: %s" % (ssl1))
+
+if flag1 or flag2 == "--cert":
+    print("Certificate:")
+    print("---------------------")
     print(cert)
 
-#if flag == "--fingerprint":
-#    print(hashlib.sha1(cert).hexdigest())
+if flag1 or flag2 == "--fingerprint":
+    print("SHA-1 Fingerprint:")
+    print("----------------------")
+    print(hashlib.sha1(cert.encode('utf-8')).hexdigest())
 
+#if flag1 or flag2 == "shit":
+#    print("shit!")

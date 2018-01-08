@@ -9,3 +9,9 @@ if ssl:
     print "ssl listener"
     print certificate info
     print certificate 
+
+^got all the above stuff! good job
+NEXT:
+add flag to print date of expiration for SSL cert
+add flag to print possible server ssl/tls versions
+
