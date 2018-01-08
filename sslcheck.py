@@ -1,15 +1,15 @@
 import ssl
 import sys
 import socket
-import hashlib
-import re
+#import hashlib
+#import re
 import OpenSSL
 
 flag=0
 
-if (len(sys.argv)) < 3:
-    print("Too few args!")
-    print("Usage: sslcheck.py hostname/IP port")
+if (len(sys.argv)) < 3 or (len(sys.argv)) >= 5 :
+    print("Incorrect usage!")
+    print("Usage: sslcheck.py hostname/IP port [--cert]")
     quit()
 
 if len(sys.argv) == 4:
@@ -78,7 +78,6 @@ try:
     print("CName: %s" % (cnn))
 
     print()
-
 except Exception as f:
     print()
     print("Failed getting x509 cert details!")
