@@ -95,14 +95,16 @@ except Exception as f:
     print()
 
 #this section started trying to determine date of expiration for ssl certs
-#try:
-    #dcert = OpenSSL.crypto.load_certificate(OpenSSL.crypto.FILETYPE_PEM,  cert)
-    #datetime.datetime.strptime(dcert.get_notAfter(), "%Y%m%d%H%M%SZ")
-    #exp_date = datetime.datetime.strptime(get_peer_cert.get_notAfter(), "%Y%m%d%H%M%SZ")
-    print(exp_date)
-#except Exception as g:
-    #print()
-    #print("Exception %s" % (g))
+try:
+    edate = str(x509.get_notAfter())
+    #print("Year: %s" % (edate
+    print("Certificate Expiry Information:")
+    print("_______________________________")
+    print("Year: %s Month: %s Day: %s Hour: %s Minute: %s Second: %s" % (edate[2:6], edate[6:8], edate[8:10], edate[10:12], edate[12:14], edate [14:16]))
+    #print(exp_date)
+except Exception as g:
+    print()
+    print("Exception %s" % (g))
 
 #this section started trying to determine ssl versions server accepts
 #try:
