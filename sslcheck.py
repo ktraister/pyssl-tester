@@ -101,10 +101,13 @@ try:
     #cdate = ("%s-%s-%s" % (edate[2:6], edate[6:8], edate[8:10]))
     cdate = ("%s-%s-%s %s:%s:%s" % (edate[2:6], edate[6:8], edate[8:10], edate[10:12], edate[12:14], edate [14:16]))
 
-    if datetime.datetime.now() >  cdate:
+    """
+    Temporarily removing this code till I can get It fixed
+    if str(datetime.datetime.now()) >  cdate:
         print("Certificate is valid!")
     else:
         print("Certificate is NOT valid!")
+    """
 
     print("Certificate Expiry Information:")
     print("---------------------------------")
