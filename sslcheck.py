@@ -56,11 +56,6 @@ try:
     x509 = OpenSSL.crypto.load_certificate(OpenSSL.crypto.FILETYPE_PEM, cert)
     certls = str(x509.get_subject().get_components())
 
-    print("debugging info:")
-    print(certls)
-    print()
-    print()
-
     print("x509 Cert Details:")
     print("----------------------")
 
@@ -141,12 +136,14 @@ except Exception as g:
     print("Exception %s" % (g))
 
 #this section started trying to determine ssl versions server accepts
-#try:
-    #ssl.wrap_socket((s, ssl_version=PROTOCOL_SSLv23, do_handshake_on_connect=True, ciphers=None))
-    #ssl.get_server_certificate((server, port, ssl_version=ssl.PROTOCOL_TLSv1))
-    #SSLSocket.cipher(server, port)
-#except Exception as ssl1:
-    #print("Exception: %s" % (ssl1))
+"""
+try:
+    #s.connect((server, port))
+    context = OpenSSL.SSL.Context(SSLv3_METHOD)
+    ssl.Connection(context, None)
+except Exception as ssl1:
+    print("Exception: %s" % (ssl1))
+"""
 
 if flag1 == "--cert" or flag2 == "--cert":
     print("Certificate:")
