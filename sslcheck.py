@@ -138,9 +138,9 @@ except Exception as g:
 #this section started trying to determine ssl versions server accepts
 """
 try:
-    ssl.wrap_socket((s, PROTOCOL_SSLv23, True, None))
-    ssl.get_server_certificate((server, port, ssl.PROTOCOL_TLSv1))
-    SSLSocket.cipher(server, port)
+    #s.connect((server, port))
+    context = OpenSSL.SSL.Context(SSLv3_METHOD)
+    ssl.Connection(context, None)
 except Exception as ssl1:
     print("Exception: %s" % (ssl1))
 """
