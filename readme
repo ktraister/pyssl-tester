@@ -1,1 +1,25 @@
 A simple python tool to connect to SSL/TLS servers and pull certificate information from the connection
+
+
+EXAMPLE RUN:
+-----------------------------------------------------------------------------------------------------------------
+$ python sslcheck.py google.com 443
+
+Testing port...
+Connection succeeded!
+
+Testing for SSL listener...
+Port is listening for SSL connections!
+
+x509 Cert Details:
+----------------------
+Country: US
+State: California
+Location: Mountain View
+Organization: Google LLC
+CName: *.google.com
+
+Certificate Expiry Information:
+---------------------------------
+Year: 2018 Month: 07 Day: 17 Time: 09:26:00 GMT
+
