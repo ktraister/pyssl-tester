@@ -1,8 +1,8 @@
 import ssl
 import sys
 import socket
-#import hashlib
-#import re
+import hashlib
+import re
 import OpenSSL
 import datetime
 import check_tls_certs
@@ -56,33 +56,55 @@ try:
     x509 = OpenSSL.crypto.load_certificate(OpenSSL.crypto.FILETYPE_PEM, cert)
     certls = str(x509.get_subject().get_components())
 
+    print("debugging info:")
+    print(certls)
+    print()
+    print()
+
     print("x509 Cert Details:")
     print("----------------------")
 
     #this part of the code manipulates the return of x509.get_subject()
-    cc = certls.split(')', 1)[0].rstrip()
-    ccc = cc.split('b', 2)[2]
-    print("Country: %s" % (ccc))
+    if "b'C'" in certls:
+        ccindex = certls.find("b'C'")
+        cc = certls[8 + ccindex:]
+        cccindex = cc.find("'")
+        ccc = cc[:cccindex]
+        print("Country: %s" % (ccc))
 
     #this part manipulates the state
-    ss = certls.split(')', 2)[1].rstrip()
-    sss = ss.split('b', 2)[2]
-    print("State: %s" % (sss))
+    if "b'ST'" in certls:
+        ssindex = certls.find("b'ST'")
+        ss = certls[9 + ssindex:]
+        sssindex = ss.find("'")
+        sss = ss[:sssindex]
+        print("State: %s" % (sss))
 
     #this part for Location!
-    ll = certls.split(')', 3)[2].rstrip()
-    lll = ll.split('b', 2)[2]
-    print("Location: %s" % (lll))
+    if "b'L'" in certls:
+        llindex = certls.find("b'L'")
+        ll = certls[8 + llindex:]
+        lllindex = ll.find("'")
+        lll = ll[:lllindex]
+        print("Location: %s" % (lll))
 
     #this part for Organization
-    oo = certls.split(')', 4)[3].rstrip()
-    ooo = oo.split('b', 2)[2]
-    print("Organization: %s" % (ooo))
+    if "b'O'" in certls:
+        ooindex = certls.find("b'O'")
+        oo = certls[8 + ooindex:]
+        oooindex = oo.find("'")
+        ooo = oo[:oooindex]
+        print("Organization: %s" % (ooo))
+
 
     #this part for CName
-    cn = certls.split(')', 5)[4].rstrip()
-    cnn = cn.split('b', 2)[2]
-    print("CName: %s" % (cnn))
+    if "b'CN'" in certls:
+        nnindex = certls.find("b'CN'")
+        nn = certls[9 + nnindex:]
+        nnnindex = nn.find("'")
+        nnn = nn[:nnnindex]
+        print("CName: %s" % (nnn))
+
 
     print()
 except Exception as f:
@@ -126,12 +148,12 @@ except Exception as g:
 #except Exception as ssl1:
     #print("Exception: %s" % (ssl1))
 
-if flag1 or flag2 == "--cert":
+if flag1 == "--cert" or flag2 == "--cert":
     print("Certificate:")
     print("---------------------")
     print(cert)
 
-if flag1 or flag2 == "--fingerprint":
+if flag1 == "--fingerprint" or flag2 == "--fingerprint":
     print("SHA-1 Fingerprint:")
     print("----------------------")
     print(hashlib.sha1(cert.encode('utf-8')).hexdigest())
