@@ -5,7 +5,8 @@ import hashlib
 import re
 import OpenSSL
 import datetime
-import check_tls_certs
+
+#use argparse here jackass
 
 flag1=0
 flag2=0
